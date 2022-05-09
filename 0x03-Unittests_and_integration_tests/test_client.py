@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 import unittest
 from unittest.mock import patch, PropertyMock
-
 from parameterized import parameterized, parameterized_class
+
+import client
 from client import GithubOrgClient
 from fixtures import TEST_PAYLOAD
 
@@ -11,7 +12,6 @@ class TestGithubOrgClient(unittest.TestCase):
     """
     Test the GithubOrgClient class methods
     """
-
     @parameterized.expand([
         ("google"),
         ("abc")
@@ -53,7 +53,8 @@ class TestGithubOrgClient(unittest.TestCase):
                           '_public_repos_url',
                           new_callable=PropertyMock,
                           return_value="https://api.github.com/") as m:
-            test_client = GithubOrgClient('Holberton')
+
+            test_client = GithubOrgClient('holberton')
             test_repo = test_client.public_repos()
             for idx in range(3):
                 self.assertIn(mock_repo.return_value[idx]['name'], test_repo)
@@ -81,12 +82,10 @@ def requests_get(*args, **kwargs):
     Function that mocks requests.get function
     Returns the correct json data based on the given input url
     """
-
     class MockResponse:
         """
         Mock response
         """
-
         def __init__(self, json_data):
             self.json_data = json_data
 
@@ -108,7 +107,6 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     """
     Integration test for the GithubOrgClient.public_repos method
     """
-
     @classmethod
     def setUpClass(cls):
         """
