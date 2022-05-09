@@ -2,10 +2,9 @@
 """In this task you will write
 the first unit test for utils.access_nested_map"""
 import unittest
-from typing import Mapping, Sequence, Any
 from utils import *
 
-import parameterized as parameterized
+from parameterized import parameterized
 
 
 class TestAccessNestedMap(unittest.TestCase):
