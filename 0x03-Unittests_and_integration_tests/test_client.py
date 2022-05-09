@@ -43,11 +43,10 @@ class TestGithubOrgClient(unittest.TestCase):
             m.assert_called_once()
 
     @patch('client.get_json', return_value=[{'name': 'Holberton'},
-                                                {'name': '89'},
-                                                {'name': 'alx'}])
+                                            {'name': '89'},
+                                            {'name': 'alx'}])
     def test_public_repos(self, mock_repo):
-        """
-        Test GithubOrgClient's public_repos method
+        """Test GithubOrgClient's public_repos method
         """
         with patch.object(GithubOrgClient,
                           '_public_repos_url',
