@@ -98,20 +98,12 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """
-        Set up function for TestIntegrationGithubOrgClient class
-        Sets up a patcher to be used in the class methods
-        """
-        cls.get_patcher = patch('utils.requests.get', side_effect=requests_get)
-        cls.get_patcher.start()
-        cls.client = GithubOrgClient('google')
+        """ Initialize """
+        cls.get_patcher = patch('requests.get', side_effect=HTTPError)
 
     @classmethod
     def tearDownClass(cls):
-        """
-        Tear down resources set up for class tests.
-        Stops the patcher that had been started
-        """
+        """ clean up """
         cls.get_patcher.stop()
 
     def test_public_repos(self):
