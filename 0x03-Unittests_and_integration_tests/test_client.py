@@ -63,29 +63,6 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(expected_return, test_return)
 
 
-def requests_get(*args, **kwargs):
-    """
-    Function that mocks requests.get function
-    Returns the correct json data based on the given input url
-    """
-
-    class MockResponse:
-        """
-        Mock response
-        """
-
-        def __init__(self, json_data):
-            self.json_data = json_data
-
-        def json(self):
-            return self.json_data
-
-    if args[0] == "https://api.github.com/orgs/google":
-        return MockResponse(TEST_PAYLOAD[0][0])
-    if args[0] == TEST_PAYLOAD[0][0]["repos_url"]:
-        return MockResponse(TEST_PAYLOAD[0][1])
-
-
 @parameterized_class(
     ('org_payload', 'repos_payload', 'expected_repos', 'apache2_repos'),
     [(TEST_PAYLOAD[0][0], TEST_PAYLOAD[0][1], TEST_PAYLOAD[0][2],
@@ -98,12 +75,20 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """ Initialize """
+        """
+        Set up function for TestIntegrationGithubOrgClient class
+        Sets up a patcher to be used in the class methods
+        """
         cls.get_patcher = patch('requests.get', side_effect=HTTPError)
+        cls.get_patcher.start()
+        cls.client = GithubOrgClient('google')
 
     @classmethod
     def tearDownClass(cls):
-        """ clean up """
+        """
+        Tear down resources set up for class tests.
+        Stops the patcher that had been started
+        """
         cls.get_patcher.stop()
 
     def test_public_repos(self):
