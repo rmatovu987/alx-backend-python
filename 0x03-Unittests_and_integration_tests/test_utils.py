@@ -9,13 +9,18 @@ import parameterized as parameterized
 
 
 class TestAccessNestedMap(unittest.TestCase):
-    """Test Class"""
-
-    @parameterized.expand([({"a": 1}, ("a",), 1),
-                           ({"a": {"b": 2}}, ("a",), {"b": 2}),
-                           ({"a": {"b": 2}}, ("a", "b"), 2)
-                           ])
-    def test_access_nested_map(self, nested_map: Mapping, path: Sequence,
-                               expected: Any):
-        """Test function"""
+    """tests the  utils.access_nested_map
+    """
+    @parameterized.expand([
+        ({"a": 1}, ("a",), 1),
+        ({"a": {"b": 2}}, ("a",), {"b": 2}),
+        ({"a": {"b": 2}}, ("a", "b"), 2)
+    ])
+    def test_access_nested_map(self, nested_map, path, expected):
+        """
+        Args:
+            nested_map Mapping: nested map
+            path tuple: a sequence
+            expected value from last path input
+        """
         self.assertEqual(access_nested_map(nested_map, path), expected)
