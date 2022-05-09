@@ -46,13 +46,14 @@ class TestGithubOrgClient(unittest.TestCase):
                                             {'name': '89'},
                                             {'name': 'alx'}])
     def test_public_repos(self, mock_repo):
-        """Test GithubOrgClient's public_repos method
+        """
+        Test GithubOrgClient's public_repos method
         """
         with patch.object(GithubOrgClient,
                           '_public_repos_url',
                           new_callable=PropertyMock,
                           return_value="https://api.github.com/") as m:
-            test_client = GithubOrgClient('holberton')
+            test_client = GithubOrgClient('Holberton')
             test_repo = test_client.public_repos()
             for idx in range(3):
                 self.assertIn(mock_repo.return_value[idx]['name'], test_repo)
