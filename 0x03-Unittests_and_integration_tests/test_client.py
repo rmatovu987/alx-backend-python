@@ -23,7 +23,7 @@ class TestGithubOrgClient(unittest.TestCase):
         test_client = GithubOrgClient(org_name)
         test_return = test_client.org
         self.assertEqual(test_return, mock_get.return_value)
-        mock_get.assert_called_once
+        mock_get.assert_called_once()
 
     def test_public_repos_url(self):
         """ test _public_repos_url """
@@ -34,7 +34,7 @@ class TestGithubOrgClient(unittest.TestCase):
             test_json = {"repos_url": "holberton"}
             test_client = GithubOrgClient(test_json.get("repos_url"))
             test_return = test_client._public_repos_url
-            mock_get.assert_called_once
+            mock_get.assert_called_once()
             self.assertEqual(test_return,
                              mock_get.return_value.get("repos_url"))
 
@@ -48,8 +48,8 @@ class TestGithubOrgClient(unittest.TestCase):
             test_client = GithubOrgClient("hoberton")
             test_return = test_client.public_repos()
             self.assertEqual(test_return, ["holberton"])
-            mock_get.assert_called_once
-            mock_pub.assert_called_once
+            mock_get.assert_called_once()
+            mock_pub.assert_called_once()
 
 
     @parameterized.expand([
@@ -87,7 +87,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
                           return_value={"repos_url": "holberton"}) as mock_get:
             test_client = GithubOrgClient("holberton")
             test_return = test_client._public_repos_url
-            mock_get.assert_called_once
+            mock_get.assert_called_once()
             self.assertEqual(test_return,
                              mock_get.return_value.get("repos_url"))
 
