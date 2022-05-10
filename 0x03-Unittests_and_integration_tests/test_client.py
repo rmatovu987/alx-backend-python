@@ -104,7 +104,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         Sets up a patcher to be used in the class methods
         """
         cls.get_patcher = patch('requests.get',
-                                side_effect=HTTPError)
+                                side_effect=requests_get)
         cls.get_patcher.start()
         cls.client = GithubOrgClient('google')
 
