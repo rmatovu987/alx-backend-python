@@ -71,7 +71,8 @@ def requests_get(*args, **kwargs):
 
     class MockResponse:
         """
-        Mock response
+        Function that mocks requests.get function
+        Returns the correct json data based on the given input url
         """
 
         def __init__(self, json_data):
